@@ -1,25 +1,29 @@
 /* global data */
 /* exported data */
-var $photoURL = document.querySelector('#photoURL');
-$photoURL.addEventListener('input', updateURL);
-
 var $form = document.querySelector('form');
 $form.addEventListener('submit', submit);
 
+var $photo = document.querySelector('img');
+var $photoURL = document.querySelector('#photoURL');
+$photoURL.addEventListener('input', updateURL);
+
 function updateURL(event) {
   var src = $photoURL.value;
-  $photoURL.setAttribute('src', src);
+  $photo.setAttribute('src', src);
 }
 
 function submit(event) {
   event.preventDefault();
+  data.nextEntryId += 1;
   var inputObj = {
     title: $form.elements.title.value,
     imageURL: $form.elements.photoURL.value,
-    notes: $form.elements.notes.value
+    notes: $form.elements.notes.value,
+    nextEntryId: data.nextEntryId
   };
-
-  var inputString = JSON.stringify(inputObj);
-  localStorage.setItem('Input Form', inputString);
-
+  data.entries.unshift(inputObj);
+  var inputJSON = JSON.stringify(data);
+  localStorage.setItem('Input Form', inputJSON);
+  $form.reset();
+  $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
 }

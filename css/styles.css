@@ -2,10 +2,6 @@
   font-family: "Proza Libre", sans-serif;
 }
 
-header {
-  font-weight: 400;
-}
-
 body {
   background-color: #f0f0f0;
 }
@@ -13,7 +9,8 @@ body {
 .header {
   background-color: #562b80;
   color: rgb(228, 228, 228);
-  padding: 15px 23px;
+  padding: 15px 0;
+  font-weight: 400;
 }
 
 .img-size {
@@ -27,16 +24,18 @@ body {
   width: 100%;
   font-weight: 400;
   border-radius: 4px;
-  border: none;
+  border: 1.5px solid rgb(177, 177, 177);
 }
 
 .input:focus {
+  border: none;
   outline: 2px solid #562b80;
 }
 
 .label {
   margin: 10px 0;
   font-weight: 600;
+  color: rgb(65, 65, 65);
 }
 
 .text-area {
@@ -44,12 +43,13 @@ body {
   width: 100%;
   font-weight: 400;
   border-radius: 4px;
-  border: none;
+  border: 1.5px solid rgb(177, 177, 177);
   resize: none;
 }
 
 .text-area:focus {
   outline: 2px solid #562b80;
+  border: none;
 }
 
 .button {
