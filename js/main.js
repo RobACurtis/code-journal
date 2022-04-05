@@ -1,12 +1,6 @@
 /* global data */
 /* exported data */
 
-var previousEntriesJSON = localStorage.getItem('Input Form');
-if (previousEntriesJSON !== null) {
-  data = JSON.parse(previousEntriesJSON);
-}
-window.addEventListener('beforeunload', beforeUnload);
-
 var $form = document.querySelector('form');
 $form.addEventListener('submit', submitButton);
 
@@ -29,11 +23,6 @@ function submitButton(event) {
   };
   data.nextEntryId += 1;
   data.entries.unshift(inputObj);
-  $form.reset();
   $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
-}
-
-function beforeUnload(event) {
-  var inputJSON = JSON.stringify(data);
-  localStorage.setItem('Input Form', inputJSON);
+  $form.reset();
 }
