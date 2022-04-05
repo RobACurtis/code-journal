@@ -1,7 +1,7 @@
 /* global data */
 /* exported data */
 var $form = document.querySelector('form');
-$form.addEventListener('submit', submit);
+$form.addEventListener('submit', submitButton);
 
 var $photo = document.querySelector('img');
 var $photoURL = document.querySelector('#photoURL');
@@ -12,7 +12,7 @@ function updateURL(event) {
   $photo.setAttribute('src', src);
 }
 
-function submit(event) {
+function submitButton(event) {
   event.preventDefault();
   data.nextEntryId += 1;
   var inputObj = {
