@@ -1,5 +1,12 @@
 /* global data */
 /* exported data */
+
+var previousEntriesJSON = localStorage.getItem('Input Form');
+if (previousEntriesJSON !== null) {
+  data = JSON.parse(previousEntriesJSON);
+}
+window.addEventListener('beforeunload', beforeUnload);
+
 var $form = document.querySelector('form');
 $form.addEventListener('submit', submitButton);
 
@@ -14,16 +21,19 @@ function updateURL(event) {
 
 function submitButton(event) {
   event.preventDefault();
-  data.nextEntryId += 1;
   var inputObj = {
     title: $form.elements.title.value,
     imageURL: $form.elements.photoURL.value,
     notes: $form.elements.notes.value,
-    nextEntryId: data.nextEntryId
+    entryId: data.nextEntryId
   };
+  data.nextEntryId += 1;
   data.entries.unshift(inputObj);
-  var inputJSON = JSON.stringify(data);
-  localStorage.setItem('Input Form', inputJSON);
   $form.reset();
   $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
+}
+
+function beforeUnload(event) {
+  var inputJSON = JSON.stringify(data);
+  localStorage.setItem('Input Form', inputJSON);
 }
