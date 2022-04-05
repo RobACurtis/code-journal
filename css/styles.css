@@ -19,6 +19,13 @@ ul {
   margin-top: 20px;
 }
 
+.nav-item {
+  font-size: 14px;
+  padding-left: 22px;
+  text-decoration: none;
+  color: rgb(228, 228, 228);
+}
+
 .margin-bottom {
   color: rgb(65, 65, 65);
   margin-bottom: 20px;

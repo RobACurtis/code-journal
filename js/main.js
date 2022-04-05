@@ -11,6 +11,22 @@ $photoURL.addEventListener('input', updateURL);
 var $entries = document.querySelector('div[data-view=entries]');
 var $ul = document.querySelector('.entry-list');
 
+var $navEntries = document.querySelector('.nav-item');
+$navEntries.addEventListener('click', showEntries);
+
+function showEntries(event) {
+  $form.setAttribute('class', 'hidden');
+  $entries.setAttribute('class', 'container');
+}
+
+var $newEntryButton = document.querySelector('.new-button');
+$newEntryButton.addEventListener('click', showForm);
+
+function showForm(event) {
+  $form.setAttribute('class', 'view');
+  $entries.setAttribute('class', 'container hidden');
+}
+
 function updateURL(event) {
   var src = $photoURL.value;
   $photo.setAttribute('src', src);
@@ -28,6 +44,7 @@ function submitButton(event) {
   data.nextEntryId += 1;
   $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
   $form.reset();
+  renderEntries(inputObj);
 }
 
 function renderEntries(obj) {
