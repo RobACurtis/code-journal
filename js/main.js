@@ -13,7 +13,7 @@ $photoURL.addEventListener('input', updateURL);
 var $entries = document.querySelector('div[data-view=entries]');
 
 var $ul = document.querySelector('#entry-list');
-var $li = document.querySelector('#example');
+var $noItems = document.querySelector('#no-items');
 
 var $navEntries = document.querySelector('.nav-item');
 $navEntries.addEventListener('click', showEntries);
@@ -45,8 +45,8 @@ function submitButton(event) {
     entryId: data.nextEntryId
   };
   data.entries.unshift(inputObj);
-  var $value = renderEntry(inputObj);
-  $ul.prepend($value);
+  var $newEntryDOMTree = renderEntry(inputObj);
+  $ul.prepend($newEntryDOMTree);
   data.nextEntryId += 1;
   $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
   $form.reset();
@@ -66,36 +66,36 @@ function renderEntry(obj) {
   // ul
 
   $form.setAttribute('class', 'hidden');
-  $li.setAttribute('class', 'hidden');
+  $noItems.setAttribute('class', 'hidden');
   $entries.setAttribute('class', 'container');
 
-  var _li = document.createElement('li');
-  _li.setAttribute('class', 'row margin-top');
+  var $li = document.createElement('li');
+  $li.setAttribute('class', 'row margin-top');
 
-  var _divColumn = document.createElement('div');
-  _divColumn.setAttribute('class', 'column-half');
-  _li.appendChild(_divColumn);
+  var $divColumn = document.createElement('div');
+  $divColumn.setAttribute('class', 'column-half');
+  $li.appendChild($divColumn);
 
-  var _image = document.createElement('img');
-  _image.setAttribute('src', obj.imageURL);
-  _image.className = 'img-size';
-  _divColumn.appendChild(_image);
+  var $image = document.createElement('img');
+  $image.setAttribute('src', obj.imageURL);
+  $image.className = 'img-size';
+  $divColumn.appendChild($image);
 
-  var _divText = document.createElement('div');
-  _divText.className = 'column-half margin-bottom';
-  _li.appendChild(_divText);
+  var $divText = document.createElement('div');
+  $divText.className = 'column-half margin-bottom';
+  $li.appendChild($divText);
 
-  var _heading = document.createElement('h2');
-  _heading.className = 'margin black';
-  _heading.textContent = obj.title;
-  _divText.appendChild(_heading);
+  var $heading = document.createElement('h2');
+  $heading.className = 'margin black';
+  $heading.textContent = obj.title;
+  $divText.appendChild($heading);
 
-  var _text = document.createElement('p');
-  _text.className = 'font-weight-four';
-  _text.textContent = obj.notes;
-  _divText.appendChild(_text);
+  var $text = document.createElement('p');
+  $text.className = 'font-weight-four';
+  $text.textContent = obj.notes;
+  $divText.appendChild($text);
 
-  return _li;
+  return $li;
 }
 
 function renderExisitingEntries(event) {
