@@ -44,10 +44,10 @@ function submitButton(event) {
     notes: $form.elements.notes.value,
     entryId: data.nextEntryId
   };
+  data.nextEntryId += 1;
   data.entries.unshift(inputObj);
   var $newEntryDOMTree = renderEntry(inputObj);
   $ul.prepend($newEntryDOMTree);
-  data.nextEntryId += 1;
   $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
   $form.reset();
 }
@@ -86,9 +86,13 @@ function renderEntry(obj) {
   $li.appendChild($divText);
 
   var $heading = document.createElement('h2');
-  $heading.className = 'margin black';
+  $heading.className = 'margin black flex-wrap';
   $heading.textContent = obj.title;
   $divText.appendChild($heading);
+
+  var $editIcon = document.createElement('i');
+  $editIcon.className = 'fa fa-pen';
+  $heading.appendChild($editIcon);
 
   var $text = document.createElement('p');
   $text.className = 'font-weight-four';
