@@ -70,6 +70,7 @@ function renderEntry(obj) {
   $entries.setAttribute('class', 'container');
 
   var $li = document.createElement('li');
+  $li.setAttribute('data-entry-id', obj.entryId);
   $li.setAttribute('class', 'row margin-top');
 
   var $divColumn = document.createElement('div');
@@ -106,5 +107,20 @@ function renderExisitingEntries(event) {
   for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
     var $value = renderEntry(data.entries[dataIndex]);
     $ul.appendChild($value);
+  }
+}
+
+$ul.addEventListener('click', editItem);
+
+function editItem(event) {
+  if (event.target && event.target.matches('i')) {
+    var li = event.target.closest('li');
+    var idNum = Number(li.getAttribute('data-entry-id'));
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === idNum) {
+        data.editing = Object.assign({}, data.entries[i]);
+      }
+    }
+    showForm();
   }
 }
