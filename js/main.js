@@ -1,6 +1,8 @@
 /* global data */
 /* exported data */
 
+window.addEventListener('DOMContentLoaded', renderExisitingEntries);
+
 var $form = document.querySelector('form');
 $form.addEventListener('submit', submitButton);
 
@@ -9,27 +11,29 @@ var $photoURL = document.querySelector('#photoURL');
 $photoURL.addEventListener('input', updateURL);
 
 var $entries = document.querySelector('div[data-view=entries]');
-var $ul = document.querySelector('.entry-list');
+
+var $ul = document.querySelector('#entry-list');
+var $li = document.querySelector('#example');
 
 var $navEntries = document.querySelector('.nav-item');
 $navEntries.addEventListener('click', showEntries);
+
+var $newEntryButton = document.querySelector('.new-button');
+$newEntryButton.addEventListener('click', showForm);
+
+function updateURL(event) {
+  var src = $photoURL.value;
+  $photo.setAttribute('src', src);
+}
 
 function showEntries(event) {
   $form.setAttribute('class', 'hidden');
   $entries.setAttribute('class', 'container');
 }
 
-var $newEntryButton = document.querySelector('.new-button');
-$newEntryButton.addEventListener('click', showForm);
-
 function showForm(event) {
-  $form.setAttribute('class', 'view');
+  $form.setAttribute('class', ' ');
   $entries.setAttribute('class', 'container hidden');
-}
-
-function updateURL(event) {
-  var src = $photoURL.value;
-  $photo.setAttribute('src', src);
 }
 
 function submitButton(event) {
@@ -41,13 +45,14 @@ function submitButton(event) {
     entryId: data.nextEntryId
   };
   data.entries.unshift(inputObj);
+  var $value = renderEntry(inputObj);
+  $ul.prepend($value);
   data.nextEntryId += 1;
   $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
   $form.reset();
-  renderEntries(inputObj);
 }
 
-function renderEntries(obj) {
+function renderEntry(obj) {
   // ul
   // --li
   // ---div
@@ -61,11 +66,11 @@ function renderEntries(obj) {
   // ul
 
   $form.setAttribute('class', 'hidden');
+  $li.setAttribute('class', 'hidden');
   $entries.setAttribute('class', 'container');
 
   var _li = document.createElement('li');
   _li.setAttribute('class', 'row margin-top');
-  $ul.appendChild(_li);
 
   var _divColumn = document.createElement('div');
   _divColumn.setAttribute('class', 'column-half');
@@ -89,12 +94,13 @@ function renderEntries(obj) {
   _text.className = 'font-weight-four';
   _text.textContent = obj.notes;
   _divText.appendChild(_text);
+
+  return _li;
 }
 
-var dataIndex = 0;
-window.addEventListener('DOMContentLoaded', renderExisitingEntries);
 function renderExisitingEntries(event) {
-  for (dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
-    renderEntries(data.entries[dataIndex]);
+  for (var dataIndex = 0; dataIndex < data.entries.length; dataIndex++) {
+    var $value = renderEntry(data.entries[dataIndex]);
+    $ul.appendChild($value);
   }
 }
