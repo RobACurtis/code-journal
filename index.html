@@ -22,6 +22,7 @@
         <div class="column-full">
           <header>
             Code Journal
+            <a href="#" class="nav-item">Entries</a>
           </header>
         </div>
       </div>
@@ -29,9 +30,9 @@
   </div>
   <main>
     <div class="container" data-view="entry-form">
-      <form>
+      <form class="hidden">
         <div class="row">
-          <div class="column-full">
+          <div class="column-full black">
             <h2>New Entry</h2>
           </div>
         </div>
@@ -40,22 +41,35 @@
             <img class="img-size" src="images/placeholder-image-square.jpg" alt="placeholder image">
           </div>
           <div class="column-half">
-            <div class="label"><label for="title">Title</label></div>
-            <div><input id="title" class="input" type="text" name="title" required="required"></div>
-            <div class="label"><label for="photoURL">Photo URL</label></div>
-            <div><input id="photoURL" class="input" type="text" name="photoURL" required="required"></div>
+            <div class="label font-weight-six"><label for="title">Title</label></div>
+            <div><input id="title" class="input font-weight-four" type="text" name="title" required="required"></div>
+            <div class="label font-weight-six"><label for="photoURL">Photo URL</label></div>
+            <div><input id="photoURL" class="input font-weight-four" type="text" name="photoURL" required="required"></div>
           </div>
         </div>
         <div class="row">
           <div class="column-full">
-            <div class="label"><label for="notes">Notes</label></div>
-            <div><textarea id="notes" class="text-area" name="notes" required="required"></textarea></div>
+            <div class="label font-weight-six"><label for="notes">Notes</label></div>
+            <div><textarea id="notes" class="text-area font-weight-four" name="notes" required="required"></textarea></div>
           </div>
           <div class="column-full flex-end">
             <button class="button">SAVE</button>
           </div>
         </div>
       </form>
+    </div>
+    <div class="container" data-view="entries">
+      <div class="row">
+        <div class="column-full flex-wrap black">
+          <h2>Entries</h2>
+          <button class="button new-button">NEW</button>
+        </div>
+      </div>
+      <div class="column-full text-center">
+        <p id="no-items" class="p-font">No entries have been recorded.</p>
+      </div>
+      <ul id="entry-list">
+      </ul>
     </div>
   </main>
   <script src="js/data.js"></script>
