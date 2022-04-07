@@ -23,6 +23,7 @@ $newEntryButton.addEventListener('click', showForm);
 
 function updateURL(event) {
   var src = $photoURL.value;
+  $photo.setAttribute('onerror', 'this.src="../images/placeholder-image-square.jpg"');
   $photo.setAttribute('src', src);
 }
 
@@ -52,7 +53,7 @@ function submitButton(event) {
         for (var listI = 0; listI < $listItem.length; listI++) {
           var idNum = Number($listItem[listI].getAttribute('data-entry-id'));
           if (idNum === data.editing.entryId) {
-            $ul.replaceChild($updatedEntry, $listItem[listI]);
+            $listItem[listI].replaceWith($updatedEntry);
           }
         }
         data.editing = null;
