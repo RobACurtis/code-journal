@@ -21,6 +21,25 @@ $navEntries.addEventListener('click', showEntries);
 var $newEntryButton = document.querySelector('.new-button');
 $newEntryButton.addEventListener('click', showForm);
 
+var $editButtons = document.querySelector('#edit-button');
+var $deleteButton = $editButtons.querySelector('.delete-entry-button');
+var $modal = document.querySelector('#modal');
+$deleteButton.addEventListener('click', displayModal);
+
+var $confirmButton = $modal.querySelector('.confirm-button');
+var $cancelButton = $modal.querySelector('.cancel');
+$confirmButton.addEventListener('click');
+$cancelButton.addEventListener('click', displayModal);
+
+function displayModal(event) {
+  var modalClass = $modal.getAttribute('class');
+  if (modalClass === 'hidden') {
+    $modal.setAttribute('class', '');
+  } else {
+    $modal.setAttribute('class', 'hidden');
+  }
+}
+
 function updateURL(event) {
   var src = $photoURL.value;
   $photo.setAttribute('onerror', 'this.src="../images/placeholder-image-square.jpg"');
@@ -33,6 +52,13 @@ function showEntries(event) {
 }
 
 function showForm(event) {
+  if (data.editing !== null) {
+    $editButtons.className = 'column-full flex-wrap';
+    $deleteButton.className = 'delete-entry-button';
+  } else {
+    $editButtons.className = 'column-full flex-end';
+    $deleteButton.className = 'delete-entry-button hidden';
+  }
   $form.setAttribute('class', ' ');
   $entries.setAttribute('class', 'container hidden');
 }
@@ -58,9 +84,9 @@ function submitButton(event) {
         }
         data.editing = null;
         $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
-        $editButtons.className = 'column-full flex-end';
-        $deleteButton.className = 'delete-entry-button hidden';
         $form.reset();
+        // $editButtons.className = 'column-full flex-end';
+        // $deleteButton.className = 'delete-entry-button hidden';
         return;
       }
     }
@@ -137,9 +163,6 @@ function renderExisitingEntries(event) {
   }
 }
 
-var $editButtons = document.querySelector('#edit-button');
-var $deleteButton = $editButtons.querySelector('.delete-entry-button');
-
 function editItem(event) {
   if (event.target && event.target.matches('i')) {
     var li = event.target.closest('li');
@@ -154,7 +177,5 @@ function editItem(event) {
         showForm();
       }
     }
-    $editButtons.className = 'column-full flex-wrap';
-    $deleteButton.className = 'delete-entry-button';
   }
 }
