@@ -58,6 +58,8 @@ function submitButton(event) {
         }
         data.editing = null;
         $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
+        $editButtons.className = 'column-full flex-end';
+        $deleteButton.className = 'delete-entry-button hidden';
         $form.reset();
         return;
       }
@@ -135,6 +137,9 @@ function renderExisitingEntries(event) {
   }
 }
 
+var $editButtons = document.querySelector('#edit-button');
+var $deleteButton = $editButtons.querySelector('.delete-entry-button');
+
 function editItem(event) {
   if (event.target && event.target.matches('i')) {
     var li = event.target.closest('li');
@@ -149,5 +154,7 @@ function editItem(event) {
         showForm();
       }
     }
+    $editButtons.className = 'column-full flex-wrap';
+    $deleteButton.className = 'delete-entry-button';
   }
 }

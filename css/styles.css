@@ -95,6 +95,16 @@ ul {
   cursor: pointer;
 }
 
+.delete-entry-button {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #dc2626;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .new-button {
   padding: 2px 20px;
 }
