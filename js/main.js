@@ -13,8 +13,8 @@ $photoURL.addEventListener('input', updateURL);
 var $entries = document.querySelector('div[data-view=entries]');
 
 var $ul = document.querySelector('#entry-list');
+$ul.addEventListener('click', editItem);
 var $noItems = document.querySelector('#no-items');
-
 var $navEntries = document.querySelector('.nav-item');
 $navEntries.addEventListener('click', showEntries);
 
@@ -38,6 +38,30 @@ function showForm(event) {
 
 function submitButton(event) {
   event.preventDefault();
+  if (data.editing !== null) {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.editing.entryId === data.entries[i].entryId) {
+        data.entries[i] = {
+          title: $form.elements.title.value,
+          imageURL: $form.elements.photoURL.value,
+          notes: $form.elements.notes.value,
+          entryId: data.entries[i].entryId
+        };
+        var $updatedEntry = renderEntry(data.entries[i]);
+        var $listItem = document.querySelectorAll('li[data-entry-id]');
+        for (var listI = 0; listI < $listItem.length; listI++) {
+          var idNum = Number($listItem[listI].getAttribute('data-entry-id'));
+          if (idNum === data.editing.entryId) {
+            $ul.replaceChild($updatedEntry, $listItem[listI]);
+          }
+        }
+        data.editing = null;
+        $photo.setAttribute('src', '../images/placeholder-image-square.jpg');
+        $form.reset();
+        return;
+      }
+    }
+  }
   var inputObj = {
     title: $form.elements.title.value,
     imageURL: $form.elements.photoURL.value,
@@ -70,8 +94,8 @@ function renderEntry(obj) {
   $entries.setAttribute('class', 'container');
 
   var $li = document.createElement('li');
-  $li.setAttribute('data-entry-id', obj.entryId);
   $li.setAttribute('class', 'row margin-top');
+  $li.setAttribute('data-entry-id', obj.entryId);
 
   var $divColumn = document.createElement('div');
   $divColumn.setAttribute('class', 'column-half');
@@ -110,8 +134,6 @@ function renderExisitingEntries(event) {
   }
 }
 
-$ul.addEventListener('click', editItem);
-
 function editItem(event) {
   if (event.target && event.target.matches('i')) {
     var li = event.target.closest('li');
@@ -119,8 +141,12 @@ function editItem(event) {
     for (var i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === idNum) {
         data.editing = Object.assign({}, data.entries[i]);
+        $form.elements.title.value = data.editing.title;
+        $form.elements.photoURL.value = data.editing.imageURL;
+        $form.elements.notes.value = data.editing.notes;
+        $photo.setAttribute('src', data.editing.imageURL);
+        showForm();
       }
     }
-    showForm();
   }
 }
